@@ -6,17 +6,29 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		0F60AD4F2EB4F88200088352 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F60AD4C2EB4F88200088352 /* ContentView.swift */; };
+		0F60AD502EB4F88200088352 /* VideoCompressorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F60AD4D2EB4F88200088352 /* VideoCompressorApp.swift */; };
+		0F60AD512EB4F88200088352 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F60AD4B2EB4F88200088352 /* Assets.xcassets */; };
+		0F60AD652EB5015200088352 /* VideoCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F60AD642EB5015200088352 /* VideoCompressor.swift */; };
+		0F60AD682EB5041300088352 /* VideoCompressorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F60AD672EB5041300088352 /* VideoCompressorView.swift */; };
+		0F60AD692EB5041400088352 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F60AD6A2EB5041400088352 /* Video.swift */; };
+		0F60AD6B2EB5041500088352 /* VideoCompressorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F60AD6C2EB5041500088352 /* VideoCompressorViewModel.swift */; };
+		0F60AD6D2EB5041600088352 /* PickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F60AD6E2EB5041600088352 /* PickerCoordinator.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		0F60AD3D2EB4F84100088352 /* VideoCompressor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoCompressor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F60AD4B2EB4F88200088352 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0F60AD4C2EB4F88200088352 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0F60AD4D2EB4F88200088352 /* VideoCompressorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCompressorApp.swift; sourceTree = "<group>"; };
+		0F60AD642EB5015200088352 /* VideoCompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCompressor.swift; sourceTree = "<group>"; };
+		0F60AD662EB5031600088352 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0F60AD672EB5041300088352 /* VideoCompressorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCompressorView.swift; sourceTree = "<group>"; };
+		0F60AD6A2EB5041400088352 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		0F60AD6C2EB5041500088352 /* VideoCompressorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCompressorViewModel.swift; sourceTree = "<group>"; };
+		0F60AD6E2EB5041600088352 /* PickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		0F60AD3F2EB4F84100088352 /* VideoCompressor */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = VideoCompressor;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0F60AD3A2EB4F84100088352 /* Frameworks */ = {
@@ -32,7 +44,7 @@
 		0F60AD342EB4F84100088352 = {
 			isa = PBXGroup;
 			children = (
-				0F60AD3F2EB4F84100088352 /* VideoCompressor */,
+				0F60AD4E2EB4F88200088352 /* VideoCompressor */,
 				0F60AD3E2EB4F84100088352 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +55,22 @@
 				0F60AD3D2EB4F84100088352 /* VideoCompressor.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0F60AD4E2EB4F88200088352 /* VideoCompressor */ = {
+			isa = PBXGroup;
+			children = (
+				0F60AD662EB5031600088352 /* Info.plist */,
+				0F60AD4B2EB4F88200088352 /* Assets.xcassets */,
+				0F60AD4C2EB4F88200088352 /* ContentView.swift */,
+				0F60AD4D2EB4F88200088352 /* VideoCompressorApp.swift */,
+				0F60AD642EB5015200088352 /* VideoCompressor.swift */,
+				0F60AD672EB5041300088352 /* VideoCompressorView.swift */,
+				0F60AD6A2EB5041400088352 /* Video.swift */,
+				0F60AD6C2EB5041500088352 /* VideoCompressorViewModel.swift */,
+				0F60AD6E2EB5041600088352 /* PickerCoordinator.swift */,
+			);
+			path = VideoCompressor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,9 +87,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				0F60AD3F2EB4F84100088352 /* VideoCompressor */,
 			);
 			name = VideoCompressor;
 			packageProductDependencies = (
@@ -109,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F60AD512EB4F88200088352 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +145,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F60AD4F2EB4F88200088352 /* ContentView.swift in Sources */,
+				0F60AD502EB4F88200088352 /* VideoCompressorApp.swift in Sources */,
+				0F60AD652EB5015200088352 /* VideoCompressor.swift in Sources */,
+				0F60AD682EB5041300088352 /* VideoCompressorView.swift in Sources */,
+				0F60AD692EB5041400088352 /* Video.swift in Sources */,
+				0F60AD6B2EB5041500088352 /* VideoCompressorViewModel.swift in Sources */,
+				0F60AD6D2EB5041600088352 /* PickerCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,9 +286,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X3YKR6M53J;
+				DEVELOPMENT_TEAM = HD6L96RXMR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VideoCompressor/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs full access to your photo library to select and compress videos. Your videos are processed locally and never shared.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app may save compressed videos back to your photo library if you choose to save them.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -285,9 +321,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X3YKR6M53J;
+				DEVELOPMENT_TEAM = HD6L96RXMR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VideoCompressor/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs full access to your photo library to select and compress videos. Your videos are processed locally and never shared.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app may save compressed videos back to your photo library if you choose to save them.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

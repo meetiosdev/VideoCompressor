@@ -2,20 +2,14 @@
 //  ContentView.swift
 //  VideoCompressor
 //
-//  Created by Swarajmeet Singh on 31/10/25.
+//  Main entry point - delegates to VideoCompressorView
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        VideoCompressorView()
     }
 }
 
