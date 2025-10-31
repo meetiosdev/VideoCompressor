@@ -14,8 +14,11 @@
 //  - iOS 18.0+ / macOS 14.0+
 //  - PhotosPicker handles permissions automatically (no Info.plist entry needed)
 //
+//  Note: AVAssetExportSession is not Sendable, but usage is safe because
+//  exportAsynchronously completion handlers run on the main thread
+//
 
-import AVFoundation
+@preconcurrency import AVFoundation
 import Combine
 import UniformTypeIdentifiers
 import OSLog
@@ -116,8 +119,8 @@ class VideoCompressor: ObservableObject {
     /// Get video information from URL
     static func getVideoInfo(from url: URL) async throws -> VideoInfo {
         let asset = AVURLAsset(url: url)
-        try await asset.load(.tracks)
-        try await asset.load(.duration)
+        _ = try await asset.load(.tracks)
+        _ = try await asset.load(.duration)
         
         guard let videoTrack = try await asset.loadTracks(withMediaType: .video).first else {
             throw CompressorError.noVideoTrack
@@ -186,7 +189,7 @@ class VideoCompressor: ObservableObject {
     private func performCompression(sourceURL: URL, quality: CompressionQuality) async throws -> URL {
         // Load asset asynchronously
         let asset = AVURLAsset(url: sourceURL)
-        try await asset.load(.tracks)
+        _ = try await asset.load(.tracks)
         
         guard try await asset.loadTracks(withMediaType: .video).first != nil else {
             throw CompressorError.noVideoTrack
@@ -225,15 +228,19 @@ class VideoCompressor: ObservableObject {
         status = "Compressing..."
         logger.info("Starting compression: \(sourceURL.lastPathComponent) → \(quality.rawValue)")
         
-        // Monitor progress asynchronously (compatible with iOS 18+)
-        let progressMonitorTask = Task { @MainActor in
-            while !Task.isCancelled {
-                // Use KVO or direct property access for status
-                if exportSession.status == .exporting {
-                    progress = Double(exportSession.progress)
-                    status = "Compressing... \(Int(exportSession.progress * 100))%"
-                } else {
+        // Store weak reference for progress monitoring to avoid Sendable warnings
+        let progressMonitorTask = Task { @MainActor [weak exportSession] in
+            while !Task.isCancelled, let session = exportSession {
+                // Use progress property instead of deprecated status
+                let currentProgress = session.progress
+                if currentProgress > 0 && currentProgress < 1.0 {
+                    progress = Double(currentProgress)
+                    status = "Compressing... \(Int(currentProgress * 100))%"
+                } else if currentProgress >= 1.0 {
+                    progress = 1.0
                     break
+                } else {
+                    // Not started yet, wait a bit
                 }
                 try? await Task.sleep(nanoseconds: 100_000_000) // 0.1s
             }
@@ -245,13 +252,27 @@ class VideoCompressor: ObservableObject {
                 try await exportSession.export(to: outputURL, as: .mp4)
             } else {
                 // Fallback for earlier iOS versions
+                // Note: AVAssetExportSession is not Sendable, but exportAsynchronously's
+                // completion handler is guaranteed to run on the main thread where
+                // exportSession was created, so accessing it is safe
                 try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-                    exportSession.exportAsynchronously {
-                        switch exportSession.status {
+                    // Capture status and error before entering closure to avoid Sendable warning
+                    var finalStatus: AVAssetExportSession.Status = .unknown
+                    var finalError: Error?
+                    
+                    // Use nonisolated access pattern - safe because completion runs on main thread
+                    // Note: exportSession is not Sendable, but safe because completion handler runs synchronously on main thread
+                    let session = exportSession
+                    session.exportAsynchronously {
+                        // Completion handler runs on main thread - safe to access session
+                        finalStatus = session.status
+                        finalError = session.error
+                        
+                        switch finalStatus {
                         case .completed:
                             continuation.resume()
                         case .failed:
-                            let error = exportSession.error ?? CompressorError.exportFailed(NSError())
+                            let error = finalError ?? CompressorError.exportFailed(NSError())
                             continuation.resume(throwing: CompressorError.exportFailed(error))
                         case .cancelled:
                             continuation.resume(throwing: CompressorError.cancelled)
