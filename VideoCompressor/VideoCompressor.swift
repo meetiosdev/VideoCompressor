@@ -25,28 +25,28 @@ import OSLog
 
 // MARK: - Compression Quality
 enum CompressionQuality: String, CaseIterable, Identifiable {
-    case low = "Low (1 Mbps)"
-    case medium = "Medium (4 Mbps)"
-    case high = "High (8 Mbps)"
+    case low = "Low (~0.5 Mbps)"
+    case medium = "Medium (~1.5 Mbps)"
+    case high = "High (~4 Mbps)"
     case original = "Original"
     
     var id: String { rawValue }
     
     var preset: String {
         switch self {
-        case .low: return AVAssetExportPresetMediumQuality          // Scales down, uses HEVC when available
-        case .medium: return AVAssetExportPresetHighestQuality      // Scales down moderately, HEVC on modern devices
-        case .high: return AVAssetExportPresetHighestQuality       // Minimal compression, HEVC on modern devices
-        case .original: return AVAssetExportPresetHighestQuality    // No compression, best quality
+        case .low: return AVAssetExportPresetLowQuality          // Low quality - maximum compression, scales down, uses HEVC when available
+        case .medium: return AVAssetExportPresetMediumQuality      // Medium quality - balanced compression, scales down moderately, HEVC on modern devices
+        case .high: return AVAssetExportPresetHighestQuality       // High quality - minimal compression, HEVC on modern devices
+        case .original: return AVAssetExportPresetHighestQuality    // Original quality - no compression, best quality preserved
         }
     }
     
     var bitrate: Int? {
         switch self {
-        case .low: return 1_000_000      // 1 Mbps
-        case .medium: return 4_000_000  // 4 Mbps
-        case .high: return 8_000_000    // 8 Mbps
-        case .original: return nil     // Use preset defaults
+        case .low: return 500_000      // ~0.5 Mbps; suitable for low-bandwidth scenarios
+        case .medium: return 1_500_000  // ~1.5 Mbps; balanced quality/size ratio
+        case .high: return 4_000_000    // ~4 Mbps; high quality with minimal artifacts
+        case .original: return nil     // Preserve source bitrate - no target bitrate set
         }
     }
 }
